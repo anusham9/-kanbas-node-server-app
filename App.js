@@ -6,6 +6,7 @@ import CourseRoutes from "./Kanbas/Courses/routes.js";
 import cors from "cors";
 import session from "express-session";
 import ModuleRoutes from "./Kanbas/Modules/routes.js";
+import AssignmentsRoutes from './Kanbas/Assignments/routes.js';
 import "dotenv/config";
 
 const app = express();      // create instance
@@ -37,3 +38,4 @@ Lab5(app);
 UserRoutes(app);
 CourseRoutes(app);
 ModuleRoutes(app);
+AssignmentsRoutes(app);
