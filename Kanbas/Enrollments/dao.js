@@ -12,3 +12,11 @@ export function findUserEnrollments(userId) {
   const userEnrollments = enrollments.filter((enrollment) => enrollment.user === userId);
   return userEnrollments;
 }
+
+export const unenrollUserFromCourse = (userId, courseId) => {
+  const { enrollments } = Database;
+  Database.enrollments = enrollments.filter(
+    (enrollment) =>
+      !(enrollment.user === userId && enrollment.course === courseId)
+  );
+};

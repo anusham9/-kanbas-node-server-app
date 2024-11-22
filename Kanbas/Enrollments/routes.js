@@ -4,15 +4,18 @@ export default function EnrollmentsRoutes(app) {
   const enrollUserInCourse = (req, res) => {
     const { userId, courseId } = req.params;
     enrollmentsDao.enrollUserInCourse(userId, courseId);
-  
-    // Fetch updated enrollments for the user
     const updatedEnrollments = enrollmentsDao.findUserEnrollments(userId);
-  
-    // Return the updated list of enrollments
     res.status(200).json(updatedEnrollments);
   };
   
   app.post("/api/enrollments/:userId/:courseId", enrollUserInCourse);
+
+
+  app.delete("/api/enrollments/:userId/:courseId", (req, res) => {
+    const { userId, courseId } = req.params;
+      const status = enrollmentsDao.unenrollUserFromCourse(userId, courseId);
+      res.send(status);
+    });
 
   app.get("/api/enrollments/:userId", (req, res) => {
     let { userId } = req.params;
@@ -25,9 +28,7 @@ export default function EnrollmentsRoutes(app) {
       userId = currentUser._id; 
     }
   
-    const enrollments = enrollmentsDao.findUserEnrollments(userId);
-    console.log('Enrollments for user:', userId, enrollments); 
-
+    const enrollments = enrollmentsDao.findUserEnrollments(userId); 
     res.json(enrollments);
   });
 }
