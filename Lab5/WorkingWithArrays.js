@@ -75,4 +75,25 @@ export default function WorkingWithArrays(app) {
     const todo = todos.find((t) => t.id === parseInt(id));
     res.json(todo);
   });
+  app.get("/lab5/todos/:id/completed/:completed", (req, res) => {
+    const { id, completed } = req.params;
+    const todo = todos.find((t) => t.id === parseInt(id));
+    if (!todo) {
+      res.status(404).json({ message: `Todo with ID ${id} not found` });
+      return;
+    }
+    todo.completed = completed === "true";
+    res.json(todos);
+  });
+  
+  app.get("/lab5/todos/:id/description/:description", (req, res) => {
+    const { id, description } = req.params;
+    const todo = todos.find((t) => t.id === parseInt(id));
+    if (!todo) {
+      res.status(404).json({ message: `Todo with ID ${id} not found` });
+      return;
+    }
+    todo.description = description;
+    res.json(todos);
+  });
 }
