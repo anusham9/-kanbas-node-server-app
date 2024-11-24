@@ -8,7 +8,11 @@ import session from "express-session";
 import ModuleRoutes from "./Kanbas/Modules/routes.js";
 import AssignmentsRoutes from './Kanbas/Assignments/routes.js';
 import "dotenv/config";
+import mongoose from 'mongoose';
 import EnrollmentsRoutes from './Kanbas/Enrollments/routes.js';
+
+const CONNECTION_STRING = process.env.MONGO_CONNECTION_STRING || "mongodb://127.0.0.1:27017/kanbas"
+mongoose.connect(CONNECTION_STRING);
 
 const app = express();      // create instance
 app.use(cors({
