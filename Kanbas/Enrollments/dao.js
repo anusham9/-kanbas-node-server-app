@@ -1,22 +1,20 @@
-import Database from "../Database/index.js";
-export function enrollUserInCourse(userId, courseId) {
-  const newEnrollment = { _id: Date.now(), user: userId, course: courseId };
-  Database.enrollments = [...Database.enrollments, newEnrollment];
-  console.log('Database Enrollments after addition:', Database.enrollments);
+import model from "./model.js";
 
-  return newEnrollment;
+export async function findCoursesForUser(userId) {
+  // retreive courses user enrolled in and populate dashboard
+ const enrollments = await model.find({ user: userId }).populate("course");
+ return enrollments.map((enrollment) => enrollment.course);
+}
+export async function findUsersForCourse(courseId) {
+    // retreive list of students/user enrolled in course - give people ß
+
+ const enrollments = await model.find({ course: courseId }).populate("user");
+ return enrollments.map((enrollment) => enrollment.user);
 }
 
-export function findUserEnrollments(userId) {
-  const { enrollments } = Database;
-  const userEnrollments = enrollments.filter((enrollment) => enrollment.user === userId);
-  return userEnrollments;
+export function enrollUserInCourse(user, course) {
+ return model.create({ user, course });
 }
-
-export const unenrollUserFromCourse = (userId, courseId) => {
-  const { enrollments } = Database;
-  Database.enrollments = enrollments.filter(
-    (enrollment) =>
-      !(enrollment.user === userId && enrollment.course === courseId)
-  );
-};
+export function unenrollUserFromCourse(user, course) {
+ return model.deleteOne({ user, course });
+}
