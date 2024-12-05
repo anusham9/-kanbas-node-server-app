@@ -5,12 +5,12 @@ export const createAssignment = (assignment) => {
   return model.create(assignment);
 }
 
-export const deleteAssignment = (assignmentId) =>{
-  model.deleteOne({ _id: assignmentId });
+export function deleteAssignment(assignmentId) {
+  return model.deleteOne({ _id: assignmentId });
  }
 
-export const updateAssignment = (assignmentId, assignment) => {
-  model.updateOne({ _id: assignmentId }, { $set: assignment });
+ export function updateAssignment(assignmentId, assignmentUpdates) {
+  return model.updateOne({ _id: assignmentId }, assignmentUpdates);
 }
 
 export const findAssignmentsForCourse =(courseId) =>{

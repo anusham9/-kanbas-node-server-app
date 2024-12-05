@@ -3,14 +3,14 @@ const assignmentSchema = new mongoose.Schema(
   {
     course: { type: mongoose.Schema.Types.ObjectId, ref: "CourseModel" },
     title: { type: String, required: true },
-    desciption: String,
+    description: { type: String, default: ""},
     points: String,
     dueDate: Date,
     availableDate: Date,
     until: Date,
     group: {
       type: String,
-      enum: ['ASSIGNMENTS', 'QUIZZES'],
+      enum: ['ASSIGNMENTS', 'QUIZZES', 'EXAMS', 'PROJECT'],
       default: 'ASSIGNMENTS',
       required: true,
     },
